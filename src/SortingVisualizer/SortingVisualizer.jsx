@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { getMergeSortAnimations } from '../SortingAlgorithms/SortingAlgorithms';
+import {
+  getMergeSortAnimations,
+  getBubbleSortAnimations,
+} from '../SortingAlgorithms/SortingAlgorithms';
 import './SortingVisualizer.css';
 
 // Change this value for the speed of the animations.
-const ANIMATION_SPEED_MS = 1;
+const ANIMATION_SPEED_MS = 20;
 
 // Change this value for the number of bars (value) in the array.
 const NUMBER_OF_ARRAY_BARS = 310;
@@ -61,7 +64,47 @@ export default class SortingVisualizer extends Component {
   };
   quickSort = () => {};
   heapSort = () => {};
-  bubbleSort = () => {};
+  bubbleSort = () => {
+    const animations = getBubbleSortAnimations(this.state.array);
+    for (let i = 0; i < animations.length; i++) {
+      const arrayBars = document.getElementsByClassName('array-bar');
+      const { action, indicies } = animations[i];
+      const [barOneIdx, barTwoIdx] = indicies;
+      const barOneStyle = arrayBars[barOneIdx].style;
+      const barTwoStyle = arrayBars[barTwoIdx].style;
+      switch (action) {
+        case 'comparing':
+          setTimeout(() => {
+            console.log(`compare: ${barOneIdx}, ${barTwoIdx}`);
+            barOneStyle.backgroundColor = SECONDARY_COLOR;
+            barTwoStyle.backgroundColor = SECONDARY_COLOR;
+          }, i * ANIMATION_SPEED_MS);
+          break;
+        case 'swap':
+          setTimeout(() => {
+            console.log(
+              `swap: ${barOneIdx}, ${barTwoIdx} | ${barOneStyle.height}, ${barTwoStyle.height}`
+            );
+            const temp = barOneStyle.height;
+            barOneStyle.height = `${barTwoStyle.height}`;
+            barTwoStyle.height = `${temp}`;
+          }, i * ANIMATION_SPEED_MS);
+          break;
+        case 'finish':
+          setTimeout(() => {
+            console.log(
+              `finish: ${barOneIdx}, ${barTwoIdx} | ${barOneStyle.height}, ${barTwoStyle.height}`
+            );
+            console.log();
+            barOneStyle.backgroundColor = PRIMARY_COLOR;
+            barTwoStyle.backgroundColor = PRIMARY_COLOR;
+          }, i * ANIMATION_SPEED_MS);
+          break;
+        default:
+          break;
+      }
+    }
+  };
 
   // NOTE: This method will only work if your sorting algorithms actually return
   // the sorted arrays; if they return the animations (as they currently do), then
