@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import {
   getMergeSortAnimations,
   getBubbleSortAnimations,
-} from '../SortingAlgorithms/SortingAlgorithms';
+} from '../../SortingAlgorithms/SortingAlgorithms';
 import './SortingVisualizer.css';
+import { Button } from './SortingVisualizer.styled';
 
 // Change this value for the speed of the animations.
-const ANIMATION_SPEED_MS = 20;
+const ANIMATION_SPEED_MS = 5;
 
 // Change this value for the number of bars (value) in the array.
 const NUMBER_OF_ARRAY_BARS = 310;
@@ -16,6 +17,7 @@ const PRIMARY_COLOR = 'turquoise';
 
 // This is the color of array bars that are being compared throughout the animations.
 const SECONDARY_COLOR = 'red';
+
 export default class SortingVisualizer extends Component {
   constructor(props) {
     super(props);
@@ -136,11 +138,11 @@ export default class SortingVisualizer extends Component {
           ))}
         </div>
         <div className="controller">
-          <button onClick={this.resetArray}>Generate New Array</button>
-          <button onClick={this.mergeSort}>Merge Sort</button>
-          <button onClick={this.quickSort}>Quick Sort</button>
-          <button onClick={this.heapSort}>Heap Sort</button>
-          <button onClick={this.bubbleSort}>Bubble Sort</button>
+          <Button onClick={this.resetArray}>Generate New Array</Button>
+          <Button onClick={this.mergeSort}>Merge Sort</Button>
+          <Button onClick={this.quickSort}>Quick Sort</Button>
+          <Button onClick={this.heapSort}>Heap Sort</Button>
+          <Button onClick={this.bubbleSort}>Bubble Sort</Button>
         </div>
       </>
     );
