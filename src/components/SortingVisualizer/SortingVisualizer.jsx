@@ -7,7 +7,7 @@ import './SortingVisualizer.css';
 import { Button } from './SortingVisualizer.styled';
 
 // Change this value for the speed of the animations.
-const ANIMATION_SPEED_MS = 5;
+const ANIMATION_SPEED_MS = 100;
 
 // Change this value for the number of bars (value) in the array.
 const NUMBER_OF_ARRAY_BARS = 310;
@@ -17,6 +17,8 @@ const PRIMARY_COLOR = 'turquoise';
 
 // This is the color of array bars that are being compared throughout the animations.
 const SECONDARY_COLOR = 'red';
+
+const SWAP_COLOR = 'yellow';
 
 export default class SortingVisualizer extends Component {
   constructor(props) {
@@ -87,6 +89,8 @@ export default class SortingVisualizer extends Component {
             console.log(
               `swap: ${barOneIdx}, ${barTwoIdx} | ${barOneStyle.height}, ${barTwoStyle.height}`
             );
+            barOneStyle.backgroundColor = SWAP_COLOR;
+            barTwoStyle.backgroundColor = SWAP_COLOR;
             const temp = barOneStyle.height;
             barOneStyle.height = `${barTwoStyle.height}`;
             barTwoStyle.height = `${temp}`;
